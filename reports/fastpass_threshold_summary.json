@@ -1,0 +1,45 @@
+{
+  "previous_threshold": 0.625,
+  "recommended_threshold": 0.605,
+  "previous": {
+    "local_valid": {
+      "accuracy": 0.7,
+      "fake_recall": 0.98,
+      "fake_predicted_real": 4,
+      "real_predicted_fake": 116
+    },
+    "local_test": {
+      "accuracy": 0.69,
+      "fake_recall": 0.955,
+      "fake_predicted_real": 9,
+      "real_predicted_fake": 115
+    },
+    "external": {
+      "accuracy": 0.65,
+      "fake_recall": 0.9,
+      "fake_predicted_real": 1,
+      "real_predicted_fake": 6
+    }
+  },
+  "updated": {
+    "local_valid": {
+      "accuracy": 0.7175,
+      "fake_recall": 0.965,
+      "fake_predicted_real": 7,
+      "real_predicted_fake": 106
+    },
+    "local_test": {
+      "accuracy": 0.7125,
+      "fake_recall": 0.935,
+      "fake_predicted_real": 13,
+      "real_predicted_fake": 102
+    },
+    "external": {
+      "accuracy": 0.7,
+      "fake_recall": 0.9,
+      "fake_predicted_real": 1,
+      "real_predicted_fake": 5
+    }
+  },
+  "decision": "use 0.605 as best fast compromise from checkpointed artifacts"
+}

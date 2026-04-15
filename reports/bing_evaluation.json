@@ -1,0 +1,42 @@
+[
+    {
+        "filename": "bing_vetted_fake_0.png",
+        "source": "fotor.com (AI Face Generator Showcase)",
+        "true_label": "fake",
+        "predicted_label": "fake",
+        "confidence": 0.9978895562235266,
+        "correct": true
+    },
+    {
+        "filename": "bing_vetted_fake_1.png",
+        "source": "aiartslab.com (AI Face Generators Showcase)",
+        "true_label": "fake",
+        "predicted_label": "fake",
+        "confidence": 0.7119356989860535,
+        "correct": true
+    },
+    {
+        "filename": "bing_vetted_fake_2.webp",
+        "source": "thispersonnotexist.org (Direct StyleGAN output)",
+        "true_label": "fake",
+        "predicted_label": "fake",
+        "confidence": 0.9988153460435569,
+        "correct": true
+    },
+    {
+        "filename": "bing_vetted_fake_3.jpg",
+        "source": "0chatgpt.blogspot.com (AI generators)",
+        "true_label": "fake",
+        "predicted_label": "fake",
+        "confidence": 0.8427387177944183,
+        "correct": true
+    },
+    {
+        "filename": "bing_vetted_fake_4.jpg",
+        "source": "dataconomy.com (Fake Name Generators article)",
+        "true_label": "fake",
+        "predicted_label": "fake",
+        "confidence": 0.9984463196014985,
+        "correct": true
+    }
+]

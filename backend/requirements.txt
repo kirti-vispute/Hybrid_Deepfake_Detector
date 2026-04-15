@@ -1,0 +1,2 @@
+# Install full stack from repository root (Render rootDir should be `backend`).
+-r ../requirements.txt

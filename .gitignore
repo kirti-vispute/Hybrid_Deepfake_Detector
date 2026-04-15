@@ -1,0 +1,100 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+*.pyd
+.Python
+*.so
+.venv/
+venv/
+env/
+.venv_hdfd/
+Dataset/
+external_test/
+.env
+.env.*
+!.env.example
+!frontend/.env.example
+pip-log.txt
+pip-delete-this-directory.txt
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+*.cover
+.hypothesis/
+
+# --- Jupyter ---
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# --- OS / editors ---
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# --- Local tooling / caches (never publish) ---
+.local_python/
+.keras/
+.torch/
+.cache/
+wandb/
+mlruns/
+
+# --- Dataset & media (do not commit) ---
+/data/*
+!/data/README.md
+real_vs_fake/
+**/real_vs_fake/
+
+# --- ML weights, calibrators, features, training outputs ---
+*.keras
+*.h5
+*.hdf5
+*.pth
+*.pt
+*.ckpt
+*.pkl
+*.pickle
+*.joblib
+*.onnx
+*.safetensors
+*.pb
+*.tflite
+*.npz
+*.npy
+artifacts/
+results/
+
+# Generated / local routing & metadata under models/ (may contain absolute paths)
+models/*
+!models/README.md
+
+# --- Node / frontend ---
+node_modules/
+frontend/node_modules/
+frontend/dist/
+frontend/build/
+*.tsbuildinfo
+.npm/
+.pnpm-store/
+
+# --- Logs & temp ---
+logs/
+*.log
+tmp/
+temp/
+*.tmp
+
+# --- Build / packaging ---
+dist/
+build/
+*.egg-info/
+.eggs/

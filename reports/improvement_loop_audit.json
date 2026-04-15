@@ -1,0 +1,27 @@
+{
+  "local_dataset_counts": {
+    "train_real": 3500,
+    "train_fake": 3500,
+    "valid_real": 1500,
+    "valid_fake": 1500
+  },
+  "feature_cache_present": {
+    "default_train": true,
+    "default_valid": true,
+    "default_test": true,
+    "local_prefix_train": true,
+    "local_prefix_valid": true,
+    "local_prefix_test": true
+  },
+  "models_present": {
+    "classical_model": true,
+    "classical_metadata": true,
+    "production_inference": true
+  },
+  "loop_eval_counts": {
+    "valid_real": 750,
+    "valid_fake": 750,
+    "test_real": 750,
+    "test_fake": 750
+  }
+}

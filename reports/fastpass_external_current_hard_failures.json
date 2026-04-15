@@ -1,0 +1,19 @@
+[
+  {
+    "filename": "tpdne_fake_05.jpg",
+    "true_label": "fake",
+    "predicted_label": "real",
+    "prob_real": 0.626732666440674,
+    "prob_fake": 0.37326733355932595,
+    "confidence": 0.626732666440674,
+    "correct": false,
+    "model_used": "classical_fallback",
+    "inference_backend": "classical_fallback",
+    "decision_threshold": 0.625,
+    "source_name": "This Person Does Not Exist",
+    "source_page": "https://thispersondoesnotexist.com/",
+    "download_url": "https://thispersondoesnotexist.com/",
+    "local_path": "D:\\Kirti\\ML_Project\\DeepFakeAI-main\\CMPN\\ML-Project\\Deepfake\\Hybrid_Deepfake_Detector\\external_test\\fake\\tpdne_fake_05.jpg",
+    "hard_example_path": "D:\\Kirti\\ML_Project\\DeepFakeAI-main\\CMPN\\ML-Project\\Deepfake\\Hybrid_Deepfake_Detector\\data\\hard_examples\\fake\\fastpass_external\\tpdne_fake_05.jpg"
+  }
+]
