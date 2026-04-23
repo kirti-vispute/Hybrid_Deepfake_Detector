@@ -15,7 +15,7 @@ from keras.utils import Sequence
 from utils.config import AppConfig
 from utils.face_detection import extract_face_or_fallback, resize_rgb
 from utils.model_utils import get_preprocess_function
-from utils.path_utils import build_absolute_image_path, resolve_existing_image_root
+from utils.path_utils import resolve_absolute_image_path, resolve_existing_image_root
 
 LOGGER = logging.getLogger(__name__)
 
@@ -367,7 +367,7 @@ def load_split_dataframe(
 
     image_root = resolve_existing_image_root(config.image_root, df['path'].tolist())
 
-    df['abs_path'] = df['path'].apply(lambda rel: str(build_absolute_image_path(image_root, rel)))
+    df['abs_path'] = df['path'].apply(lambda rel: str(resolve_absolute_image_path(config.image_root, rel)))
     exists_mask = df['abs_path'].apply(lambda p: Path(p).exists())
 
     missing_rows = int((~exists_mask).sum())

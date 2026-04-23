@@ -1,0 +1,175 @@
+{
+  "rows": [
+    {
+      "name": "resnet50_current",
+      "model_path": "D:\\Kirti\\ML_Project\\DeepFakeAI-main\\CMPN\\ML-Project\\Deepfake\\Hybrid_Deepfake_Detector\\models\\cnn_baseline.keras",
+      "backbone": "resnet50",
+      "image_size": 224,
+      "metrics": {
+        "accuracy": 0.762,
+        "balanced_accuracy": 0.7612327188940091,
+        "precision": 0.8208955223880597,
+        "recall": 0.6653225806451613,
+        "f1_score": 0.734966592427617,
+        "roc_auc": 0.8558707757296466,
+        "brier_score": 0.15443267238140287,
+        "ece": 0.030231542152682013,
+        "false_positive_rate_real": 0.3346774193548387,
+        "false_negative_rate_fake": 0.14285714285714285,
+        "confusion_matrix": [
+          [
+            216,
+            36
+          ],
+          [
+            83,
+            165
+          ]
+        ],
+        "threshold": 0.6,
+        "confidence_stats": {
+          "mean_confidence": 0.7725071247908257,
+          "std_confidence": 0.15537335717888856,
+          "mean_confidence_correct": 0.8060862635119582,
+          "mean_confidence_incorrect": 0.6649974453559403
+        },
+        "per_class": {
+          "real": {
+            "precision": 0.8208955223880597,
+            "recall": 0.6653225806451613,
+            "f1_score": 0.734966592427617,
+            "support": 248
+          },
+          "fake": {
+            "precision": 0.7224080267558528,
+            "recall": 0.8571428571428571,
+            "f1_score": 0.7840290381125227,
+            "support": 252
+          }
+        },
+        "confidence_breakdown": {
+          "mean_confidence_correct_real": 0.8577630883299645,
+          "mean_confidence_correct_fake": 0.7666109112204254,
+          "mean_confidence_wrong": 0.6649974453559403,
+          "correct_real_count": 165,
+          "correct_fake_count": 216,
+          "wrong_count": 119
+        }
+      }
+    },
+    {
+      "name": "efficientnetb0_old",
+      "model_path": "D:\\Kirti\\ML_Project\\DeepFakeAI-main\\CMPN\\ML-Project\\Deepfake\\Hybrid_Deepfake_Detector\\models\\cnn_old_effnet.keras",
+      "backbone": "efficientnetb0",
+      "image_size": 224,
+      "metrics": {
+        "accuracy": 0.74,
+        "balanced_accuracy": 0.7380952380952381,
+        "precision": 0.9538461538461539,
+        "recall": 0.5,
+        "f1_score": 0.656084656084656,
+        "roc_auc": 0.8637192780337941,
+        "brier_score": 0.18532480110112026,
+        "ece": 0.16410796570964156,
+        "false_positive_rate_real": 0.5,
+        "false_negative_rate_fake": 0.023809523809523808,
+        "confusion_matrix": [
+          [
+            246,
+            6
+          ],
+          [
+            124,
+            124
+          ]
+        ],
+        "threshold": 0.5,
+        "confidence_stats": {
+          "mean_confidence": 0.7651380270104855,
+          "std_confidence": 0.13386791099160467,
+          "mean_confidence_correct": 0.7824540654524557,
+          "mean_confidence_incorrect": 0.7158539175987244
+        },
+        "per_class": {
+          "real": {
+            "precision": 0.9538461538461539,
+            "recall": 0.5,
+            "f1_score": 0.656084656084656,
+            "support": 248
+          },
+          "fake": {
+            "precision": 0.6648648648648648,
+            "recall": 0.9761904761904762,
+            "f1_score": 0.7909967845659164,
+            "support": 252
+          }
+        },
+        "confidence_breakdown": {
+          "mean_confidence_correct_real": 0.6928132359058626,
+          "mean_confidence_correct_fake": 0.8276388738417952,
+          "mean_confidence_wrong": 0.7158539175987244,
+          "correct_real_count": 124,
+          "correct_fake_count": 246,
+          "wrong_count": 130
+        }
+      }
+    },
+    {
+      "name": "resnet50_old",
+      "model_path": "D:\\Kirti\\ML_Project\\DeepFakeAI-main\\CMPN\\ML-Project\\Deepfake\\Hybrid_Deepfake_Detector\\models\\cnn_resnet50.keras",
+      "backbone": "resnet50",
+      "image_size": 192,
+      "metrics": {
+        "accuracy": 0.674,
+        "balanced_accuracy": 0.6722030209933436,
+        "precision": 0.8102189781021898,
+        "recall": 0.4475806451612903,
+        "f1_score": 0.5766233766233766,
+        "roc_auc": 0.7808659754224271,
+        "brier_score": 0.2036364563761133,
+        "ece": 0.10138268296793104,
+        "false_positive_rate_real": 0.5524193548387096,
+        "false_negative_rate_fake": 0.10317460317460317,
+        "confusion_matrix": [
+          [
+            226,
+            26
+          ],
+          [
+            137,
+            111
+          ]
+        ],
+        "threshold": 0.5,
+        "confidence_stats": {
+          "mean_confidence": 0.6937611095197499,
+          "std_confidence": 0.119758178854867,
+          "mean_confidence_correct": 0.7166246603179491,
+          "mean_confidence_incorrect": 0.64649106891243
+        },
+        "per_class": {
+          "real": {
+            "precision": 0.8102189781021898,
+            "recall": 0.4475806451612903,
+            "f1_score": 0.5766233766233766,
+            "support": 248
+          },
+          "fake": {
+            "precision": 0.6225895316804407,
+            "recall": 0.8968253968253969,
+            "f1_score": 0.734959349593496,
+            "support": 252
+          }
+        },
+        "confidence_breakdown": {
+          "mean_confidence_correct_real": 0.6749485580770819,
+          "mean_confidence_correct_fake": 0.7370938963743042,
+          "mean_confidence_wrong": 0.64649106891243,
+          "correct_real_count": 111,
+          "correct_fake_count": 226,
+          "wrong_count": 163
+        }
+      }
+    }
+  ]
+}

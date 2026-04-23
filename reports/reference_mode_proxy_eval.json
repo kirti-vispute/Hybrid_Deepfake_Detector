@@ -1,0 +1,235 @@
+{
+  "summary": {
+    "rows": 30,
+    "accuracy": 0.9666666666666667,
+    "group_metrics": {
+      "same_person_fake_proxy_a": {
+        "rows": 10,
+        "accuracy": 1.0,
+        "mean_confidence": 0.9999999981786255
+      },
+      "same_person_fake_proxy_b": {
+        "rows": 10,
+        "accuracy": 1.0,
+        "mean_confidence": 0.9999999999997771
+      },
+      "same_person_real": {
+        "rows": 10,
+        "accuracy": 0.9,
+        "mean_confidence": 0.8775293358391674
+      }
+    }
+  },
+  "rows": [
+    {
+      "case": "same_person_real",
+      "true_label": "real",
+      "predicted_label": "real",
+      "confidence": 0.9572649572649573,
+      "correct": true
+    },
+    {
+      "case": "same_person_fake_proxy_a",
+      "true_label": "fake",
+      "predicted_label": "fake",
+      "confidence": 0.9999999999999973,
+      "correct": true
+    },
+    {
+      "case": "same_person_fake_proxy_b",
+      "true_label": "fake",
+      "predicted_label": "fake",
+      "confidence": 0.9999999999984261,
+      "correct": true
+    },
+    {
+      "case": "same_person_real",
+      "true_label": "real",
+      "predicted_label": "real",
+      "confidence": 0.9787234042553191,
+      "correct": true
+    },
+    {
+      "case": "same_person_fake_proxy_a",
+      "true_label": "fake",
+      "predicted_label": "fake",
+      "confidence": 1.0,
+      "correct": true
+    },
+    {
+      "case": "same_person_fake_proxy_b",
+      "true_label": "fake",
+      "predicted_label": "fake",
+      "confidence": 1.0,
+      "correct": true
+    },
+    {
+      "case": "same_person_real",
+      "true_label": "real",
+      "predicted_label": "real",
+      "confidence": 0.7757575757575758,
+      "correct": true
+    },
+    {
+      "case": "same_person_fake_proxy_a",
+      "true_label": "fake",
+      "predicted_label": "fake",
+      "confidence": 0.9999999999810374,
+      "correct": true
+    },
+    {
+      "case": "same_person_fake_proxy_b",
+      "true_label": "fake",
+      "predicted_label": "fake",
+      "confidence": 0.9999999999999778,
+      "correct": true
+    },
+    {
+      "case": "same_person_real",
+      "true_label": "real",
+      "predicted_label": "real",
+      "confidence": 0.9787234042553191,
+      "correct": true
+    },
+    {
+      "case": "same_person_fake_proxy_a",
+      "true_label": "fake",
+      "predicted_label": "fake",
+      "confidence": 0.9999999999999469,
+      "correct": true
+    },
+    {
+      "case": "same_person_fake_proxy_b",
+      "true_label": "fake",
+      "predicted_label": "fake",
+      "confidence": 0.9999999999998095,
+      "correct": true
+    },
+    {
+      "case": "same_person_real",
+      "true_label": "real",
+      "predicted_label": "real",
+      "confidence": 0.7017543859649122,
+      "correct": true
+    },
+    {
+      "case": "same_person_fake_proxy_a",
+      "true_label": "fake",
+      "predicted_label": "fake",
+      "confidence": 0.9999999999999978,
+      "correct": true
+    },
+    {
+      "case": "same_person_fake_proxy_b",
+      "true_label": "fake",
+      "predicted_label": "fake",
+      "confidence": 1.0,
+      "correct": true
+    },
+    {
+      "case": "same_person_real",
+      "true_label": "real",
+      "predicted_label": "real",
+      "confidence": 0.8,
+      "correct": true
+    },
+    {
+      "case": "same_person_fake_proxy_a",
+      "true_label": "fake",
+      "predicted_label": "fake",
+      "confidence": 0.9999999818178263,
+      "correct": true
+    },
+    {
+      "case": "same_person_fake_proxy_b",
+      "true_label": "fake",
+      "predicted_label": "fake",
+      "confidence": 1.0,
+      "correct": true
+    },
+    {
+      "case": "same_person_real",
+      "true_label": "real",
+      "predicted_label": "real",
+      "confidence": 0.9572649572649573,
+      "correct": true
+    },
+    {
+      "case": "same_person_fake_proxy_a",
+      "true_label": "fake",
+      "predicted_label": "fake",
+      "confidence": 1.0,
+      "correct": true
+    },
+    {
+      "case": "same_person_fake_proxy_b",
+      "true_label": "fake",
+      "predicted_label": "fake",
+      "confidence": 1.0,
+      "correct": true
+    },
+    {
+      "case": "same_person_real",
+      "true_label": "real",
+      "predicted_label": "fake",
+      "confidence": 0.6693548387096775,
+      "correct": false
+    },
+    {
+      "case": "same_person_fake_proxy_a",
+      "true_label": "fake",
+      "predicted_label": "fake",
+      "confidence": 0.9999999999933114,
+      "correct": true
+    },
+    {
+      "case": "same_person_fake_proxy_b",
+      "true_label": "fake",
+      "predicted_label": "fake",
+      "confidence": 0.9999999999998295,
+      "correct": true
+    },
+    {
+      "case": "same_person_real",
+      "true_label": "real",
+      "predicted_label": "real",
+      "confidence": 0.9572649572649573,
+      "correct": true
+    },
+    {
+      "case": "same_person_fake_proxy_a",
+      "true_label": "fake",
+      "predicted_label": "fake",
+      "confidence": 0.9999999999941376,
+      "correct": true
+    },
+    {
+      "case": "same_person_fake_proxy_b",
+      "true_label": "fake",
+      "predicted_label": "fake",
+      "confidence": 0.9999999999997284,
+      "correct": true
+    },
+    {
+      "case": "same_person_real",
+      "true_label": "real",
+      "predicted_label": "real",
+      "confidence": 0.9991848776539967,
+      "correct": true
+    },
+    {
+      "case": "same_person_fake_proxy_a",
+      "true_label": "fake",
+      "predicted_label": "fake",
+      "confidence": 1.0,
+      "correct": true
+    },
+    {
+      "case": "same_person_fake_proxy_b",
+      "true_label": "fake",
+      "predicted_label": "fake",
+      "confidence": 1.0,
+      "correct": true
+    }
+  ]
+}

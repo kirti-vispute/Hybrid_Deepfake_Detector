@@ -244,13 +244,7 @@ def _fixed_xgb_for_hybrid(y_train: np.ndarray) -> XGBClassifier:
     negatives = float(np.sum(y_train == 0))
     scale_pos_weight = (negatives / positives) if positives > 0 else 1.0
     return XGBClassifier(
-        n_estimators=300,
-        max_depth=4,
-        learning_rate=0.05,
-        subsample=0.8,
-        colsample_bytree=0.8,
-        reg_lambda=2,
-        reg_alpha=1,
+        n_estimators=800, max_depth=3, learning_rate=0.03, subsample=0.85, colsample_bytree=0.75, reg_lambda=3.0, reg_alpha=0,
         random_state=42,
         objective='binary:logistic',
         eval_metric='logloss',
@@ -275,23 +269,12 @@ def _train_standard_hybrid(
     x_train_scaled = scaler.fit_transform(x_train)
     x_valid_scaled = scaler.transform(x_valid)
 
-    pca = PCA(n_components=0.95, random_state=42)
-    x_train_p = pca.fit_transform(x_train_scaled)
-    x_valid_p = pca.transform(x_valid_scaled)
-
     pca_path = Path(args.pca_path).resolve()
-    save_joblib(pca, pca_path)
-    LOGGER.info(
-        'PCA: n_components=%d explained_variance_sum=%.4f',
-        int(pca.n_components_),
-        float(np.sum(pca.explained_variance_ratio_)),
-    )
-
     xgb_base = _fixed_xgb_for_hybrid(y_train)
     fit_kwargs = {
-        'X': x_train_p,
+        'X': x_train_scaled,
         'y': y_train,
-        'eval_set': [(x_valid_p, y_valid)],
+        'eval_set': [(x_valid_scaled, y_valid)],
         'verbose': False,
     }
     try:
@@ -299,12 +282,12 @@ def _train_standard_hybrid(
     except TypeError:
         xgb_base.fit(**fit_kwargs)
 
-    raw_prob_valid = xgb_base.predict_proba(x_valid_p)[:, 1]
+    raw_prob_valid = xgb_base.predict_proba(x_valid_scaled)[:, 1]
     hybrid_cal = fit_hybrid_calibrator_isotonic(y_true=y_valid, probs=raw_prob_valid)
     calibrated_prob_valid, _ = apply_calibration(raw_prob_valid, hybrid_cal)
     thr_bal, bal_stats = balanced_tpr_tnr_threshold(y_valid, calibrated_prob_valid)
     thr_opt, opt_stats = optimize_threshold(y_true=y_valid, y_prob=calibrated_prob_valid)
-    hybrid_threshold = float(thr_bal)
+    hybrid_threshold = float(thr_opt)
 
     LOGGER.info(
         'Validation balanced TPR/TNR threshold=%.4f (tpr=%.3f tnr=%.3f); optimize_threshold=%.4f macro_f1=%.4f',
@@ -332,21 +315,22 @@ def _train_standard_hybrid(
 
     metadata = {
         'mode': mode,
-        'hybrid_pipeline': 'cnn_embeddings_standard_scaler_pca095_xgb_isotonic_or_platt_valid',
+        'hybrid_pipeline': 'cnn_plus_identity_features_standard_scaler_no_pca_xgb_isotonic_valid',
         'final_classifier': 'xgboost',
         'calibration': 'isotonic_or_platt_on_validation',
         'use_platt_overlay': True,
-        'pca_path': str(pca_path),
-        'pca_n_components': int(pca.n_components_),
-        'pca_explained_variance_ratio_sum': float(np.sum(pca.explained_variance_ratio_)),
+        'pca_used': False,
+        'pca_path': None,
+        'pca_n_components': None,
+        'pca_explained_variance_ratio_sum': None,
         'feature_scaled': True,
         'scaler_path': str(scaler_path),
         'calibrator_path': str(calibrator_path),
         'model_path': str(model_path),
         'decision_threshold': hybrid_threshold,
         'threshold_selection': {
-            'primary': bal_stats,
-            'fallback_optimize_threshold': opt_stats,
+            'primary': opt_stats,
+            'balanced_tpr_tnr': bal_stats,
         },
         'xgboost_params': {
             'n_estimators': 300,
@@ -451,7 +435,7 @@ def _train_standard_hybrid(
     LOGGER.info('Saved XGBoost base model to: %s', model_path)
     LOGGER.info('Saved validation sigmoid (Platt) calibrator to: %s', calibrator_path)
     LOGGER.info('Saved feature scaler to: %s', scaler_path)
-    LOGGER.info('Saved PCA to: %s', pca_path)
+    LOGGER.info('Saved PCA to: disabled')
     LOGGER.info('Hybrid validation metrics: %s', calibrated_metrics)
     LOGGER.info(
         'Hybrid validation FPR(real→fake)=%s FNR(fake→real)=%s CM=%s',

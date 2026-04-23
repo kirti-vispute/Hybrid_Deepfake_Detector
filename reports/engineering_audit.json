@@ -1,0 +1,54 @@
+{
+  "splits": {
+    "train": {
+      "rows": 100000,
+      "label_counts": {
+        "real": 50000,
+        "fake": 50000
+      },
+      "duplicate_csv_paths": 0,
+      "duplicate_abs_paths": 0,
+      "missing_rows": 0,
+      "label_folder_mismatches": 0,
+      "resolved_image_root": "C:\\Users\\kirti\\.cache\\kagglehub\\datasets\\xhlulu\\140k-real-and-fake-faces\\versions\\2\\real_vs_fake\\real-vs-fake",
+      "sample_hash_duplicates_md5": 0,
+      "sample_hash_duplicates_ahash": 0
+    },
+    "valid": {
+      "rows": 20000,
+      "label_counts": {
+        "real": 10000,
+        "fake": 10000
+      },
+      "duplicate_csv_paths": 0,
+      "duplicate_abs_paths": 0,
+      "missing_rows": 0,
+      "label_folder_mismatches": 0,
+      "resolved_image_root": "C:\\Users\\kirti\\.cache\\kagglehub\\datasets\\xhlulu\\140k-real-and-fake-faces\\versions\\2\\real_vs_fake\\real-vs-fake",
+      "sample_hash_duplicates_md5": 0,
+      "sample_hash_duplicates_ahash": 0
+    },
+    "test": {
+      "rows": 20000,
+      "label_counts": {
+        "real": 10000,
+        "fake": 10000
+      },
+      "duplicate_csv_paths": 0,
+      "duplicate_abs_paths": 0,
+      "missing_rows": 0,
+      "label_folder_mismatches": 0,
+      "resolved_image_root": "C:\\Users\\kirti\\.cache\\kagglehub\\datasets\\xhlulu\\140k-real-and-fake-faces\\versions\\2\\real_vs_fake\\real-vs-fake",
+      "sample_hash_duplicates_md5": 0,
+      "sample_hash_duplicates_ahash": 0
+    }
+  },
+  "cross_split": {
+    "train_valid_path_overlap": 0,
+    "train_test_path_overlap": 0,
+    "valid_test_path_overlap": 0
+  },
+  "notes": [
+    "No exact CSV path leakage detected across train/valid/test splits."
+  ]
+}

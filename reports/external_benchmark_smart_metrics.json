@@ -1,0 +1,15 @@
+{
+  "total": 40,
+  "real_count": 20,
+  "fake_count": 20,
+  "accuracy": 0.925,
+  "fake_predicted_real": 1,
+  "fake_to_real_error": 0.05,
+  "real_predicted_fake": 2,
+  "real_to_fake_error": 0.1,
+  "fake_recall": 0.95,
+  "real_recall": 0.9,
+  "pred_real": 19,
+  "pred_fake": 21,
+  "majority_ratio": 0.525
+}

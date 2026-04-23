@@ -1,0 +1,566 @@
+{
+  "summary": {
+    "rows": 60,
+    "accuracy": 0.38333333333333336,
+    "group_metrics": {
+      "same_person_fake_proxy_a": {
+        "rows": 20,
+        "accuracy": 0.1,
+        "mean_confidence": 0.8075760960047441
+      },
+      "same_person_fake_proxy_b": {
+        "rows": 20,
+        "accuracy": 0.15,
+        "mean_confidence": 0.8413716379189872
+      },
+      "same_person_real": {
+        "rows": 20,
+        "accuracy": 0.9,
+        "mean_confidence": 0.86330072252634
+      }
+    }
+  },
+  "rows": [
+    {
+      "source_image": "0.jpg",
+      "case": "same_person_real",
+      "true_label": "real",
+      "predicted_label": "real",
+      "confidence": 0.8771929824561403,
+      "correct": true,
+      "prob_real": 0.8771929824561403
+    },
+    {
+      "source_image": "0.jpg",
+      "case": "same_person_fake_proxy_a",
+      "true_label": "fake",
+      "predicted_label": "real",
+      "confidence": 0.8,
+      "correct": false,
+      "prob_real": 0.8
+    },
+    {
+      "source_image": "0.jpg",
+      "case": "same_person_fake_proxy_b",
+      "true_label": "fake",
+      "predicted_label": "real",
+      "confidence": 0.8771929824561403,
+      "correct": false,
+      "prob_real": 0.8771929824561403
+    },
+    {
+      "source_image": "1.jpg",
+      "case": "same_person_real",
+      "true_label": "real",
+      "predicted_label": "real",
+      "confidence": 0.7757575757575758,
+      "correct": true,
+      "prob_real": 0.7757575757575758
+    },
+    {
+      "source_image": "1.jpg",
+      "case": "same_person_fake_proxy_a",
+      "true_label": "fake",
+      "predicted_label": "real",
+      "confidence": 0.7757575757575758,
+      "correct": false,
+      "prob_real": 0.7757575757575758
+    },
+    {
+      "source_image": "1.jpg",
+      "case": "same_person_fake_proxy_b",
+      "true_label": "fake",
+      "predicted_label": "real",
+      "confidence": 0.7757575757575758,
+      "correct": false,
+      "prob_real": 0.7757575757575758
+    },
+    {
+      "source_image": "10.jpg",
+      "case": "same_person_real",
+      "true_label": "real",
+      "predicted_label": "real",
+      "confidence": 0.9572649572649573,
+      "correct": true,
+      "prob_real": 0.9572649572649573
+    },
+    {
+      "source_image": "10.jpg",
+      "case": "same_person_fake_proxy_a",
+      "true_label": "fake",
+      "predicted_label": "real",
+      "confidence": 0.7757575757575758,
+      "correct": false,
+      "prob_real": 0.7757575757575758
+    },
+    {
+      "source_image": "10.jpg",
+      "case": "same_person_fake_proxy_b",
+      "true_label": "fake",
+      "predicted_label": "real",
+      "confidence": 0.9787234042553191,
+      "correct": false,
+      "prob_real": 0.9787234042553191
+    },
+    {
+      "source_image": "11.jpg",
+      "case": "same_person_real",
+      "true_label": "real",
+      "predicted_label": "real",
+      "confidence": 0.999999,
+      "correct": true,
+      "prob_real": 0.999999
+    },
+    {
+      "source_image": "11.jpg",
+      "case": "same_person_fake_proxy_a",
+      "true_label": "fake",
+      "predicted_label": "real",
+      "confidence": 0.999999,
+      "correct": false,
+      "prob_real": 0.999999
+    },
+    {
+      "source_image": "11.jpg",
+      "case": "same_person_fake_proxy_b",
+      "true_label": "fake",
+      "predicted_label": "real",
+      "confidence": 0.999999,
+      "correct": false,
+      "prob_real": 0.999999
+    },
+    {
+      "source_image": "12.jpg",
+      "case": "same_person_real",
+      "true_label": "real",
+      "predicted_label": "real",
+      "confidence": 0.9572649572649573,
+      "correct": true,
+      "prob_real": 0.9572649572649573
+    },
+    {
+      "source_image": "12.jpg",
+      "case": "same_person_fake_proxy_a",
+      "true_label": "fake",
+      "predicted_label": "real",
+      "confidence": 0.7757575757575758,
+      "correct": false,
+      "prob_real": 0.7757575757575758
+    },
+    {
+      "source_image": "12.jpg",
+      "case": "same_person_fake_proxy_b",
+      "true_label": "fake",
+      "predicted_label": "real",
+      "confidence": 0.7757575757575758,
+      "correct": false,
+      "prob_real": 0.7757575757575758
+    },
+    {
+      "source_image": "13.jpg",
+      "case": "same_person_real",
+      "true_label": "real",
+      "predicted_label": "real",
+      "confidence": 0.9572649572649573,
+      "correct": true,
+      "prob_real": 0.9572649572649573
+    },
+    {
+      "source_image": "13.jpg",
+      "case": "same_person_fake_proxy_a",
+      "true_label": "fake",
+      "predicted_label": "real",
+      "confidence": 0.9572649572649573,
+      "correct": false,
+      "prob_real": 0.9572649572649573
+    },
+    {
+      "source_image": "13.jpg",
+      "case": "same_person_fake_proxy_b",
+      "true_label": "fake",
+      "predicted_label": "real",
+      "confidence": 0.9572649572649573,
+      "correct": false,
+      "prob_real": 0.9572649572649573
+    },
+    {
+      "source_image": "14.jpg",
+      "case": "same_person_real",
+      "true_label": "real",
+      "predicted_label": "real",
+      "confidence": 0.7757575757575758,
+      "correct": true,
+      "prob_real": 0.7757575757575758
+    },
+    {
+      "source_image": "14.jpg",
+      "case": "same_person_fake_proxy_a",
+      "true_label": "fake",
+      "predicted_label": "real",
+      "confidence": 0.7017543859649122,
+      "correct": false,
+      "prob_real": 0.7017543859649122
+    },
+    {
+      "source_image": "14.jpg",
+      "case": "same_person_fake_proxy_b",
+      "true_label": "fake",
+      "predicted_label": "real",
+      "confidence": 0.6428571428571429,
+      "correct": false,
+      "prob_real": 0.6428571428571429
+    },
+    {
+      "source_image": "15.jpg",
+      "case": "same_person_real",
+      "true_label": "real",
+      "predicted_label": "real",
+      "confidence": 0.8771929824561403,
+      "correct": true,
+      "prob_real": 0.8771929824561403
+    },
+    {
+      "source_image": "15.jpg",
+      "case": "same_person_fake_proxy_a",
+      "true_label": "fake",
+      "predicted_label": "real",
+      "confidence": 0.7757575757575758,
+      "correct": false,
+      "prob_real": 0.7757575757575758
+    },
+    {
+      "source_image": "15.jpg",
+      "case": "same_person_fake_proxy_b",
+      "true_label": "fake",
+      "predicted_label": "real",
+      "confidence": 0.7757575757575758,
+      "correct": false,
+      "prob_real": 0.7757575757575758
+    },
+    {
+      "source_image": "16.jpg",
+      "case": "same_person_real",
+      "true_label": "real",
+      "predicted_label": "fake",
+      "confidence": 0.6693548387096775,
+      "correct": false,
+      "prob_real": 0.33064516129032256
+    },
+    {
+      "source_image": "16.jpg",
+      "case": "same_person_fake_proxy_a",
+      "true_label": "fake",
+      "predicted_label": "fake",
+      "confidence": 0.6693548387096775,
+      "correct": true,
+      "prob_real": 0.33064516129032256
+    },
+    {
+      "source_image": "16.jpg",
+      "case": "same_person_fake_proxy_b",
+      "true_label": "fake",
+      "predicted_label": "fake",
+      "confidence": 0.6666666666666667,
+      "correct": true,
+      "prob_real": 0.3333333333333333
+    },
+    {
+      "source_image": "17.jpg",
+      "case": "same_person_real",
+      "true_label": "real",
+      "predicted_label": "real",
+      "confidence": 0.6428571428571429,
+      "correct": true,
+      "prob_real": 0.6428571428571429
+    },
+    {
+      "source_image": "17.jpg",
+      "case": "same_person_fake_proxy_a",
+      "true_label": "fake",
+      "predicted_label": "real",
+      "confidence": 0.7017543859649122,
+      "correct": false,
+      "prob_real": 0.7017543859649122
+    },
+    {
+      "source_image": "17.jpg",
+      "case": "same_person_fake_proxy_b",
+      "true_label": "fake",
+      "predicted_label": "real",
+      "confidence": 0.7757575757575758,
+      "correct": false,
+      "prob_real": 0.7757575757575758
+    },
+    {
+      "source_image": "18.jpg",
+      "case": "same_person_real",
+      "true_label": "real",
+      "predicted_label": "real",
+      "confidence": 0.9572649572649573,
+      "correct": true,
+      "prob_real": 0.9572649572649573
+    },
+    {
+      "source_image": "18.jpg",
+      "case": "same_person_fake_proxy_a",
+      "true_label": "fake",
+      "predicted_label": "real",
+      "confidence": 0.7757575757575758,
+      "correct": false,
+      "prob_real": 0.7757575757575758
+    },
+    {
+      "source_image": "18.jpg",
+      "case": "same_person_fake_proxy_b",
+      "true_label": "fake",
+      "predicted_label": "real",
+      "confidence": 0.9572649572649573,
+      "correct": false,
+      "prob_real": 0.9572649572649573
+    },
+    {
+      "source_image": "19.jpg",
+      "case": "same_person_real",
+      "true_label": "real",
+      "predicted_label": "real",
+      "confidence": 0.9787234042553191,
+      "correct": true,
+      "prob_real": 0.9787234042553191
+    },
+    {
+      "source_image": "19.jpg",
+      "case": "same_person_fake_proxy_a",
+      "true_label": "fake",
+      "predicted_label": "real",
+      "confidence": 0.9787234042553191,
+      "correct": false,
+      "prob_real": 0.9787234042553191
+    },
+    {
+      "source_image": "19.jpg",
+      "case": "same_person_fake_proxy_b",
+      "true_label": "fake",
+      "predicted_label": "real",
+      "confidence": 0.9787234042553191,
+      "correct": false,
+      "prob_real": 0.9787234042553191
+    },
+    {
+      "source_image": "2.jpg",
+      "case": "same_person_real",
+      "true_label": "real",
+      "predicted_label": "real",
+      "confidence": 0.7757575757575758,
+      "correct": true,
+      "prob_real": 0.7757575757575758
+    },
+    {
+      "source_image": "2.jpg",
+      "case": "same_person_fake_proxy_a",
+      "true_label": "fake",
+      "predicted_label": "real",
+      "confidence": 0.6428571428571429,
+      "correct": false,
+      "prob_real": 0.6428571428571429
+    },
+    {
+      "source_image": "2.jpg",
+      "case": "same_person_fake_proxy_b",
+      "true_label": "fake",
+      "predicted_label": "real",
+      "confidence": 0.6428571428571429,
+      "correct": false,
+      "prob_real": 0.6428571428571429
+    },
+    {
+      "source_image": "3.jpg",
+      "case": "same_person_real",
+      "true_label": "real",
+      "predicted_label": "real",
+      "confidence": 0.9787234042553191,
+      "correct": true,
+      "prob_real": 0.9787234042553191
+    },
+    {
+      "source_image": "3.jpg",
+      "case": "same_person_fake_proxy_a",
+      "true_label": "fake",
+      "predicted_label": "real",
+      "confidence": 0.9572649572649573,
+      "correct": false,
+      "prob_real": 0.9572649572649573
+    },
+    {
+      "source_image": "3.jpg",
+      "case": "same_person_fake_proxy_b",
+      "true_label": "fake",
+      "predicted_label": "real",
+      "confidence": 0.9572649572649573,
+      "correct": false,
+      "prob_real": 0.9572649572649573
+    },
+    {
+      "source_image": "4.jpg",
+      "case": "same_person_real",
+      "true_label": "real",
+      "predicted_label": "real",
+      "confidence": 0.7017543859649122,
+      "correct": true,
+      "prob_real": 0.7017543859649122
+    },
+    {
+      "source_image": "4.jpg",
+      "case": "same_person_fake_proxy_a",
+      "true_label": "fake",
+      "predicted_label": "real",
+      "confidence": 0.6428571428571429,
+      "correct": false,
+      "prob_real": 0.6428571428571429
+    },
+    {
+      "source_image": "4.jpg",
+      "case": "same_person_fake_proxy_b",
+      "true_label": "fake",
+      "predicted_label": "real",
+      "confidence": 0.6428571428571429,
+      "correct": false,
+      "prob_real": 0.6428571428571429
+    },
+    {
+      "source_image": "5.jpg",
+      "case": "same_person_real",
+      "true_label": "real",
+      "predicted_label": "real",
+      "confidence": 0.8,
+      "correct": true,
+      "prob_real": 0.8
+    },
+    {
+      "source_image": "5.jpg",
+      "case": "same_person_fake_proxy_a",
+      "true_label": "fake",
+      "predicted_label": "real",
+      "confidence": 0.6428571428571429,
+      "correct": false,
+      "prob_real": 0.6428571428571429
+    },
+    {
+      "source_image": "5.jpg",
+      "case": "same_person_fake_proxy_b",
+      "true_label": "fake",
+      "predicted_label": "fake",
+      "confidence": 0.918918918918919,
+      "correct": true,
+      "prob_real": 0.4594594594594595
+    },
+    {
+      "source_image": "6.jpg",
+      "case": "same_person_real",
+      "true_label": "real",
+      "predicted_label": "real",
+      "confidence": 0.9572649572649573,
+      "correct": true,
+      "prob_real": 0.9572649572649573
+    },
+    {
+      "source_image": "6.jpg",
+      "case": "same_person_fake_proxy_a",
+      "true_label": "fake",
+      "predicted_label": "real",
+      "confidence": 0.9572649572649573,
+      "correct": false,
+      "prob_real": 0.9572649572649573
+    },
+    {
+      "source_image": "6.jpg",
+      "case": "same_person_fake_proxy_b",
+      "true_label": "fake",
+      "predicted_label": "real",
+      "confidence": 0.8771929824561403,
+      "correct": false,
+      "prob_real": 0.8771929824561403
+    },
+    {
+      "source_image": "7.jpg",
+      "case": "same_person_real",
+      "true_label": "real",
+      "predicted_label": "fake",
+      "confidence": 0.6693548387096775,
+      "correct": false,
+      "prob_real": 0.33064516129032256
+    },
+    {
+      "source_image": "7.jpg",
+      "case": "same_person_fake_proxy_a",
+      "true_label": "fake",
+      "predicted_label": "fake",
+      "confidence": 0.7435897435897436,
+      "correct": true,
+      "prob_real": 0.2564102564102564
+    },
+    {
+      "source_image": "7.jpg",
+      "case": "same_person_fake_proxy_b",
+      "true_label": "fake",
+      "predicted_label": "fake",
+      "confidence": 0.6693548387096775,
+      "correct": true,
+      "prob_real": 0.33064516129032256
+    },
+    {
+      "source_image": "8.jpg",
+      "case": "same_person_real",
+      "true_label": "real",
+      "predicted_label": "real",
+      "confidence": 0.9572649572649573,
+      "correct": true,
+      "prob_real": 0.9572649572649573
+    },
+    {
+      "source_image": "8.jpg",
+      "case": "same_person_fake_proxy_a",
+      "true_label": "fake",
+      "predicted_label": "real",
+      "confidence": 0.8771929824561403,
+      "correct": false,
+      "prob_real": 0.8771929824561403
+    },
+    {
+      "source_image": "8.jpg",
+      "case": "same_person_fake_proxy_b",
+      "true_label": "fake",
+      "predicted_label": "real",
+      "confidence": 0.9572649572649573,
+      "correct": false,
+      "prob_real": 0.9572649572649573
+    },
+    {
+      "source_image": "9.jpg",
+      "case": "same_person_real",
+      "true_label": "real",
+      "predicted_label": "real",
+      "confidence": 0.999999,
+      "correct": true,
+      "prob_real": 0.999999
+    },
+    {
+      "source_image": "9.jpg",
+      "case": "same_person_fake_proxy_a",
+      "true_label": "fake",
+      "predicted_label": "real",
+      "confidence": 0.999999,
+      "correct": false,
+      "prob_real": 0.999999
+    },
+    {
+      "source_image": "9.jpg",
+      "case": "same_person_fake_proxy_b",
+      "true_label": "fake",
+      "predicted_label": "real",
+      "confidence": 0.999999,
+      "correct": false,
+      "prob_real": 0.999999
+    }
+  ],
+  "note": "Proxy benchmark built from the same real face with synthetic fake-like transforms."
+}

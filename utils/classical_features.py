@@ -5,6 +5,9 @@ from pathlib import Path
 
 import cv2
 import numpy as np
+from PIL import Image, UnidentifiedImageError
+
+from utils.face_detection import extract_face_or_fallback, resize_rgb
 
 
 @dataclass(frozen=True)
@@ -13,6 +16,13 @@ class ClassicalFeatureSpec:
     gray_hist_bins: int = 32
     lbp_bins: int = 32
     resize_side: int = 128
+
+
+@dataclass(frozen=True)
+class IdentityFeatureSpec:
+    face_size: int = 160
+    lowres_side: int = 16
+    classical: ClassicalFeatureSpec = ClassicalFeatureSpec(resize_side=128)
 
 
 def _normalize_hist(hist: np.ndarray) -> np.ndarray:
@@ -142,3 +152,66 @@ def extract_classical_features_from_path(
     if bgr is None:
         raise ValueError(f"Failed to decode image: {image_path}")
     return extract_classical_features_from_bgr(bgr, spec=spec)
+
+
+def _symmetry_features(gray: np.ndarray) -> np.ndarray:
+    h, w = gray.shape
+    half = w // 2
+    left = gray[:, :half]
+    right = np.fliplr(gray[:, w - half :])
+    min_h = min(left.shape[0], right.shape[0])
+    min_w = min(left.shape[1], right.shape[1])
+    left = left[:min_h, :min_w].astype(np.float32)
+    right = right[:min_h, :min_w].astype(np.float32)
+    diff = np.abs(left - right)
+    return np.array([float(np.mean(diff)), float(np.std(diff)), float(np.percentile(diff, 90))], dtype=np.float32)
+
+
+def _lowres_faceprint(gray: np.ndarray, lowres_side: int) -> np.ndarray:
+    small = cv2.resize(gray, (lowres_side, lowres_side), interpolation=cv2.INTER_AREA).astype(np.float32)
+    small = (small - float(np.mean(small))) / (float(np.std(small)) + 1e-6)
+    return small.reshape(-1).astype(np.float32)
+
+
+def extract_identity_features_from_pil(
+    image: Image.Image,
+    spec: IdentityFeatureSpec | None = None,
+    face_crop_expand: float = 1.25,
+) -> np.ndarray:
+    spec = spec or IdentityFeatureSpec()
+    face, _meta = extract_face_or_fallback(image.convert('RGB'), expand=float(face_crop_expand))
+    face = resize_rgb(face, spec.face_size)
+    rgb = np.asarray(face, dtype=np.uint8)
+    bgr = cv2.cvtColor(rgb, cv2.COLOR_RGB2BGR)
+    gray = cv2.cvtColor(bgr, cv2.COLOR_BGR2GRAY)
+    classical = extract_classical_features_from_bgr(bgr, spec=spec.classical)
+    symmetry = _symmetry_features(gray)
+    faceprint = _lowres_faceprint(gray, spec.lowres_side)
+    return np.concatenate([classical, symmetry, faceprint]).astype(np.float32)
+
+
+def extract_identity_features_from_path(
+    image_path: Path,
+    spec: IdentityFeatureSpec | None = None,
+    face_crop_expand: float = 1.25,
+) -> np.ndarray:
+    spec = spec or IdentityFeatureSpec()
+    try:
+        with Image.open(image_path) as img:
+            return extract_identity_features_from_pil(img.convert('RGB'), spec=spec, face_crop_expand=face_crop_expand)
+    except (UnidentifiedImageError, OSError, ValueError):
+        size = spec.classical.color_hist_bins * 3 + spec.classical.gray_hist_bins + spec.classical.lbp_bins + 3 + 15 + 16 + 6 + 3 + (spec.lowres_side * spec.lowres_side)
+        return np.zeros((size,), dtype=np.float32)
+
+
+def extract_identity_features_for_paths(
+    paths: list[str] | np.ndarray,
+    spec: IdentityFeatureSpec | None = None,
+    face_crop_expand: float = 1.25,
+) -> np.ndarray:
+    spec = spec or IdentityFeatureSpec()
+    features = [
+        extract_identity_features_from_path(Path(str(path)), spec=spec, face_crop_expand=face_crop_expand)
+        for path in paths
+    ]
+    return np.stack(features).astype(np.float32)

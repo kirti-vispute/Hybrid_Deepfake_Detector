@@ -168,7 +168,7 @@ class PredictionService:
                 ) from exc
         return self._classical_bundle
 
-    def predict(self, image_bytes: bytes, model_choice: str) -> dict:
+    def predict(self, image_bytes: bytes, model_choice: str, reference_image_bytes: bytes | None = None) -> dict:
         model_choice = model_choice.lower().strip()
         if model_choice in {'cnn', 'smart'}:
             model_choice = 'hybrid'
@@ -191,6 +191,17 @@ class PredictionService:
                 error_code='invalid_image',
                 details=str(exc),
             ) from exc
+
+        reference_image = None
+        if reference_image_bytes:
+            try:
+                reference_image = _decode_image_bytes(reference_image_bytes)
+            except ValueError as exc:
+                raise PredictionServiceError(
+                    message='Reference file is not a valid image.',
+                    error_code='invalid_reference_image',
+                    details=str(exc),
+                ) from exc
 
         try:
             if model_choice == 'classical':
@@ -221,7 +232,7 @@ class PredictionService:
 
                 # Lazy import to avoid loading DL stack when using classical fallback.
                 from utils.calibration_utils import load_optional_calibrator
-                from utils.inference_utils import predict_pil_image
+                from utils.inference_utils import predict_pairwise_identity_aware, predict_pil_image
                 from utils.model_utils import load_cnn_model, load_optional_joblib, load_xgb_model
 
                 # Lock only for lazy model loads; capture references then release.
@@ -240,16 +251,28 @@ class PredictionService:
                     cnn_calibrator = self._cnn_calibrator
                     hybrid_calibrator = self._hybrid_calibrator
 
-                result = predict_pil_image(
-                    image=image,
-                    model_choice='hybrid',
-                    config=self.config,
-                    cnn_model=cnn_model,
-                    xgb_model=xgb_model,
-                    feature_scaler=xgb_scaler,
-                    cnn_calibrator=cnn_calibrator,
-                    hybrid_calibrator=hybrid_calibrator,
-                )
+                if reference_image is not None:
+                    result = predict_pairwise_identity_aware(
+                        reference_image=reference_image,
+                        candidate_image=image,
+                        config=self.config,
+                        cnn_model=cnn_model,
+                        xgb_model=xgb_model,
+                        feature_scaler=xgb_scaler,
+                        cnn_calibrator=cnn_calibrator,
+                        hybrid_calibrator=hybrid_calibrator,
+                    )
+                else:
+                    result = predict_pil_image(
+                        image=image,
+                        model_choice='hybrid',
+                        config=self.config,
+                        cnn_model=cnn_model,
+                        xgb_model=xgb_model,
+                        feature_scaler=xgb_scaler,
+                        cnn_calibrator=cnn_calibrator,
+                        hybrid_calibrator=hybrid_calibrator,
+                    )
 
             LOGGER.info(
                 'Prediction OK: class=%s confidence=%.4f backend=%s',

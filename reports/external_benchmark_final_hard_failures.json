@@ -1,0 +1,36 @@
+[
+  {
+    "filename": "randomuser_real_12.jpg",
+    "true_label": "real",
+    "predicted_label": "fake",
+    "prob_real": 0.3333333333333333,
+    "prob_fake": 0.6666666666666667,
+    "confidence": 0.6666666666666667,
+    "correct": false,
+    "model_used": "hybrid",
+    "inference_backend": "hybrid",
+    "decision_threshold": 0.5,
+    "source_name": "RandomUser",
+    "source_page": "https://randomuser.me/api/?results=20&seed=deepfake-detector&inc=picture",
+    "download_url": "https://randomuser.me/api/portraits/men/76.jpg",
+    "local_path": "D:\\Kirti\\ML_Project\\DeepFakeAI-main\\CMPN\\ML-Project\\Deepfake\\Hybrid_Deepfake_Detector\\external_test\\real\\randomuser_real_12.jpg",
+    "hard_example_path": "D:\\Kirti\\ML_Project\\DeepFakeAI-main\\CMPN\\ML-Project\\Deepfake\\Hybrid_Deepfake_Detector\\data\\hard_examples\\fake\\external\\real\\randomuser_real_12.jpg"
+  },
+  {
+    "filename": "tpdne_fake_05.jpg",
+    "true_label": "fake",
+    "predicted_label": "real",
+    "prob_real": 0.7017543859649122,
+    "prob_fake": 0.29824561403508776,
+    "confidence": 0.7017543859649122,
+    "correct": false,
+    "model_used": "hybrid",
+    "inference_backend": "hybrid",
+    "decision_threshold": 0.5,
+    "source_name": "This Person Does Not Exist",
+    "source_page": "https://thispersondoesnotexist.com/",
+    "download_url": "https://thispersondoesnotexist.com/",
+    "local_path": "D:\\Kirti\\ML_Project\\DeepFakeAI-main\\CMPN\\ML-Project\\Deepfake\\Hybrid_Deepfake_Detector\\external_test\\fake\\tpdne_fake_05.jpg",
+    "hard_example_path": "D:\\Kirti\\ML_Project\\DeepFakeAI-main\\CMPN\\ML-Project\\Deepfake\\Hybrid_Deepfake_Detector\\data\\hard_examples\\fake\\external\\fake\\tpdne_fake_05.jpg"
+  }
+]

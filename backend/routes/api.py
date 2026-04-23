@@ -64,6 +64,7 @@ def predict():
     if model_choice in {'cnn', 'smart'}:
         model_choice = 'hybrid'
     file = request.files['file']
+    reference_file = request.files.get('reference_file')
 
     if not file or not file.filename:
         return _json_error('No file selected.', 'empty_file', HTTPStatus.BAD_REQUEST)
@@ -105,7 +106,16 @@ def predict():
             model_choice,
             len(image_bytes),
         )
-        result = _service().predict(image_bytes=image_bytes, model_choice=model_choice)
+        reference_image_bytes = None
+        if reference_file and reference_file.filename:
+            reference_image_bytes = reference_file.read()
+            if not reference_image_bytes:
+                return _json_error('Reference file is empty.', 'empty_reference_upload', HTTPStatus.BAD_REQUEST)
+        result = _service().predict(
+            image_bytes=image_bytes,
+            model_choice=model_choice,
+            reference_image_bytes=reference_image_bytes,
+        )
         safe = sanitize_for_json(result)
         return jsonify(safe)
     except PredictionServiceError as exc:

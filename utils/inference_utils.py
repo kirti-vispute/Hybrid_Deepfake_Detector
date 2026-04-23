@@ -3,11 +3,14 @@ from __future__ import annotations
 from io import BytesIO
 from pathlib import Path
 
+import joblib
 import numpy as np
 from PIL import Image, UnidentifiedImageError
 
+from utils.classical_features import extract_identity_features_from_pil
 from utils.calibration_utils import ProbabilityCalibrator, apply_calibration, load_optional_calibrator
 from utils.config import AppConfig
+from utils.fusion_utils import ClassAwareFusionParams, apply_class_aware_fusion
 from utils.model_utils import (
     get_feature_extractor,
     get_model_input_size,
@@ -46,19 +49,66 @@ def _predict_prob_cnn(
 
 def _predict_prob_hybrid(
     batch: np.ndarray,
+    image: Image.Image,
     cnn_model,
     xgb_model,
+    config: AppConfig,
     feature_scaler=None,
     pca=None,
 ) -> float:
     extractor = get_feature_extractor(cnn_model)
     features = extractor.predict(batch, verbose=0)
+    identity_features = extract_identity_features_from_pil(image=image, face_crop_expand=config.face_crop_expand)
+    features = np.concatenate([features.astype(np.float32), identity_features.reshape(1, -1)], axis=1)
     if feature_scaler is not None:
         features = feature_scaler.transform(features)
     if pca is not None:
         features = pca.transform(features)
     probabilities = xgb_model.predict_proba(features)
     return float(probabilities[:, 1][0])
+
+
+def _embedding_for_image(image: Image.Image, config: AppConfig, cnn_model) -> np.ndarray:
+    model_type, image_size = _resolve_model_runtime_settings(config=config, cnn_model=cnn_model)
+    batch, _meta = preprocess_single_image_with_meta(image, image_size, model_type)
+    extractor = get_feature_extractor(cnn_model)
+    emb = extractor.predict(batch, verbose=0)
+    return np.asarray(emb, dtype=np.float32).reshape(-1)
+
+
+def _cosine_similarity(a: np.ndarray, b: np.ndarray) -> float:
+    denom = (float(np.linalg.norm(a)) * float(np.linalg.norm(b))) + 1e-8
+    return float(np.dot(a, b) / denom)
+
+
+def _pair_feature_vector(
+    reference_image: Image.Image,
+    candidate_image: Image.Image,
+    config: AppConfig,
+    cnn_model,
+) -> np.ndarray:
+    ref_emb = _embedding_for_image(reference_image, config=config, cnn_model=cnn_model)
+    cand_emb = _embedding_for_image(candidate_image, config=config, cnn_model=cnn_model)
+    ref_id = extract_identity_features_from_pil(reference_image, face_crop_expand=config.face_crop_expand)
+    cand_id = extract_identity_features_from_pil(candidate_image, face_crop_expand=config.face_crop_expand)
+
+    artifact_slice = slice(146, 152)
+    symmetry_slice = slice(152, 155)
+    faceprint_slice = slice(155, None)
+
+    feats = np.array(
+        [
+            _cosine_similarity(ref_emb, cand_emb),
+            float(np.linalg.norm(ref_emb - cand_emb)),
+            _cosine_similarity(ref_id, cand_id),
+            float(np.linalg.norm(ref_id - cand_id)),
+            float(np.mean(np.abs(ref_id[artifact_slice] - cand_id[artifact_slice]))),
+            float(np.mean(np.abs(ref_id[symmetry_slice] - cand_id[symmetry_slice]))),
+            float(np.mean(np.abs(ref_id[faceprint_slice] - cand_id[faceprint_slice]))),
+        ],
+        dtype=np.float32,
+    )
+    return feats.reshape(1, -1)
 
 
 def _resolve_model_runtime_settings(config: AppConfig, cnn_model) -> tuple[str, int]:
@@ -83,6 +133,22 @@ def _production_inference_backend(config: AppConfig) -> str:
     if backend in {'cnn', 'cnn_direct'}:
         return 'cnn_direct'
     return 'hybrid'
+
+
+def _smart_router_params(config: AppConfig) -> ClassAwareFusionParams | None:
+    payload = load_optional_json(config.smart_router_path) or {}
+    if not bool(payload.get('enabled', False)):
+        return None
+    params = payload.get('params', {})
+    required = {'cnn_weight', 'real_gate', 'fake_gate', 'decision_threshold'}
+    if not required.issubset(set(params.keys())):
+        return None
+    return ClassAwareFusionParams(
+        cnn_weight=float(params['cnn_weight']),
+        real_gate=float(params['real_gate']),
+        fake_gate=float(params['fake_gate']),
+        decision_threshold=float(params['decision_threshold']),
+    )
 
 
 def predict_pil_image(
@@ -136,10 +202,20 @@ def predict_pil_image(
 
     xgb_model = xgb_model or load_xgb_model(config.xgb_model_path)
     scaler = feature_scaler if feature_scaler is not None else load_optional_joblib(config.xgb_scaler_path)
-    pca_path = hybrid_meta.get('pca_path')
-    pca = load_optional_joblib(Path(pca_path)) if pca_path else load_optional_joblib(config.hybrid_pca_path)
+    pca = None
+    if bool(hybrid_meta.get('pca_used', True)):
+        pca_path = hybrid_meta.get('pca_path')
+        pca = load_optional_joblib(Path(pca_path)) if pca_path else load_optional_joblib(config.hybrid_pca_path)
 
-    raw_prob_real_hybrid = _predict_prob_hybrid(batch, cnn_model, xgb_model, feature_scaler=scaler, pca=pca)
+    raw_prob_real_hybrid = _predict_prob_hybrid(
+        batch,
+        image=image,
+        cnn_model=cnn_model,
+        xgb_model=xgb_model,
+        config=config,
+        feature_scaler=scaler,
+        pca=pca,
+    )
     if use_platt_hybrid:
         hybrid_cal = hybrid_calibrator if hybrid_calibrator is not None else load_optional_calibrator(config.hybrid_calibrator_path)
         hybrid_probs, hybrid_cal_applied = apply_calibration(np.array([raw_prob_real_hybrid]), hybrid_cal)
@@ -148,15 +224,30 @@ def predict_pil_image(
         prob_real_hybrid = float(raw_prob_real_hybrid)
         hybrid_cal_applied = False
 
+    smart_params = _smart_router_params(config)
+    final_prob = prob_real_hybrid
+    final_threshold = hybrid_threshold
+    model_used = 'hybrid'
+    if smart_params is not None:
+        final_prob = float(
+            apply_class_aware_fusion(
+                cnn_prob=np.array([prob_real_cnn], dtype=np.float32),
+                hybrid_prob=np.array([prob_real_hybrid], dtype=np.float32),
+                params=smart_params,
+            )[0]
+        )
+        final_threshold = float(smart_params.decision_threshold)
+        model_used = 'smart_hybrid'
+
     payload = probability_to_prediction(
-        prob_real_hybrid,
-        threshold=hybrid_threshold,
+        final_prob,
+        threshold=final_threshold,
         uncertain_low=config.uncertain_prob_low,
         uncertain_high=config.uncertain_prob_high,
     )
-    payload['model_used'] = 'hybrid'
+    payload['model_used'] = model_used
     payload['calibrated'] = hybrid_cal_applied
-    payload['inference_backend'] = 'hybrid'
+    payload['inference_backend'] = model_used
     payload['raw_probabilities'] = {
         'real': float(raw_prob_real_hybrid),
         'fake': float(1.0 - raw_prob_real_hybrid),
@@ -164,9 +255,63 @@ def predict_pil_image(
     payload['component_probabilities'] = {
         'cnn_real': prob_real_cnn,
         'hybrid_real': prob_real_hybrid,
+        'final_real': final_prob,
     }
     payload['preprocessing'] = pre_meta
     return payload
+
+
+def predict_pairwise_identity_aware(
+    reference_image: Image.Image,
+    candidate_image: Image.Image,
+    config: AppConfig,
+    cnn_model=None,
+    xgb_model=None,
+    feature_scaler=None,
+    cnn_calibrator: ProbabilityCalibrator | None = None,
+    hybrid_calibrator: ProbabilityCalibrator | None = None,
+) -> dict:
+    cnn_model = cnn_model or load_cnn_model(config.cnn_model_path)
+    base = predict_pil_image(
+        image=candidate_image,
+        model_choice='hybrid',
+        config=config,
+        cnn_model=cnn_model,
+        xgb_model=xgb_model,
+        feature_scaler=feature_scaler,
+        cnn_calibrator=cnn_calibrator,
+        hybrid_calibrator=hybrid_calibrator,
+    )
+
+    if not config.reference_pair_model_path.exists():
+        base['reference_mode'] = False
+        base['reference_reason'] = 'pair_model_missing'
+        return base
+
+    pair_model = joblib.load(config.reference_pair_model_path)
+    pair_features = _pair_feature_vector(reference_image, candidate_image, config=config, cnn_model=cnn_model)
+    pair_fake_prob = float(pair_model.predict_proba(pair_features)[0, 1])
+    pair_real_prob = float(1.0 - pair_fake_prob)
+
+    base_real_prob = float(base['probabilities']['real'])
+    final_real_prob = min(base_real_prob, pair_real_prob)
+    final_fake_prob = 1.0 - final_real_prob
+    threshold = float((load_optional_json(config.hybrid_metadata_path) or {}).get('decision_threshold', 0.5))
+    final = probability_to_prediction(final_real_prob, threshold=threshold, uncertain_low=config.uncertain_prob_low, uncertain_high=config.uncertain_prob_high)
+    final['model_used'] = 'hybrid_reference'
+    final['inference_backend'] = 'hybrid_reference'
+    final['calibrated'] = bool(base.get('calibrated', False))
+    final['decision_threshold'] = threshold
+    final['raw_probabilities'] = base.get('raw_probabilities', {})
+    final['component_probabilities'] = {
+        **dict(base.get('component_probabilities', {})),
+        'pair_real': pair_real_prob,
+        'pair_fake': pair_fake_prob,
+        'final_real': final_real_prob,
+    }
+    final['preprocessing'] = base.get('preprocessing', {})
+    final['reference_mode'] = True
+    return final
 
 
 def load_image_from_path(image_path: Path) -> Image.Image:

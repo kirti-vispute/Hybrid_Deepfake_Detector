@@ -1,0 +1,53 @@
+[
+  {
+    "filename": "randomuser_real_05.jpg",
+    "true_label": "real",
+    "predicted_label": "fake",
+    "prob_real": 0.3879168927669525,
+    "prob_fake": 0.6120831072330475,
+    "confidence": 0.6120831072330475,
+    "correct": false,
+    "model_used": "smart_hybrid",
+    "inference_backend": "smart_hybrid",
+    "decision_threshold": 0.51,
+    "source_name": "RandomUser",
+    "source_page": "https://randomuser.me/api/?results=20&seed=deepfake-detector&inc=picture",
+    "download_url": "https://randomuser.me/api/portraits/men/97.jpg",
+    "local_path": "D:\\Kirti\\ML_Project\\DeepFakeAI-main\\CMPN\\ML-Project\\Deepfake\\Hybrid_Deepfake_Detector\\external_test\\real\\randomuser_real_05.jpg",
+    "hard_example_path": "D:\\Kirti\\ML_Project\\DeepFakeAI-main\\CMPN\\ML-Project\\Deepfake\\Hybrid_Deepfake_Detector\\data\\hard_examples\\fake\\external\\real\\randomuser_real_05.jpg"
+  },
+  {
+    "filename": "randomuser_real_14.jpg",
+    "true_label": "real",
+    "predicted_label": "fake",
+    "prob_real": 0.1147540956735611,
+    "prob_fake": 0.8852459043264389,
+    "confidence": 0.8852459043264389,
+    "correct": false,
+    "model_used": "smart_hybrid",
+    "inference_backend": "smart_hybrid",
+    "decision_threshold": 0.51,
+    "source_name": "RandomUser",
+    "source_page": "https://randomuser.me/api/?results=20&seed=deepfake-detector&inc=picture",
+    "download_url": "https://randomuser.me/api/portraits/women/2.jpg",
+    "local_path": "D:\\Kirti\\ML_Project\\DeepFakeAI-main\\CMPN\\ML-Project\\Deepfake\\Hybrid_Deepfake_Detector\\external_test\\real\\randomuser_real_14.jpg",
+    "hard_example_path": "D:\\Kirti\\ML_Project\\DeepFakeAI-main\\CMPN\\ML-Project\\Deepfake\\Hybrid_Deepfake_Detector\\data\\hard_examples\\fake\\external\\real\\randomuser_real_14.jpg"
+  },
+  {
+    "filename": "tpdne_fake_05.jpg",
+    "true_label": "fake",
+    "predicted_label": "real",
+    "prob_real": 0.9655172228813171,
+    "prob_fake": 0.03448277711868286,
+    "confidence": 0.9655172228813171,
+    "correct": false,
+    "model_used": "smart_hybrid",
+    "inference_backend": "smart_hybrid",
+    "decision_threshold": 0.51,
+    "source_name": "This Person Does Not Exist",
+    "source_page": "https://thispersondoesnotexist.com/",
+    "download_url": "https://thispersondoesnotexist.com/",
+    "local_path": "D:\\Kirti\\ML_Project\\DeepFakeAI-main\\CMPN\\ML-Project\\Deepfake\\Hybrid_Deepfake_Detector\\external_test\\fake\\tpdne_fake_05.jpg",
+    "hard_example_path": "D:\\Kirti\\ML_Project\\DeepFakeAI-main\\CMPN\\ML-Project\\Deepfake\\Hybrid_Deepfake_Detector\\data\\hard_examples\\fake\\external\\fake\\tpdne_fake_05.jpg"
+  }
+]

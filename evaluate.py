@@ -12,6 +12,7 @@ import logging
 
 import numpy as np
 
+from utils.classical_features import extract_identity_features_for_paths
 from utils.calibration_utils import apply_calibration, load_optional_calibrator
 from utils.config import get_config
 from utils.data_loader import create_split_sequence, load_split_dataframe
@@ -177,7 +178,12 @@ def _evaluate_split(
     split_features, feature_labels = _load_features(feature_dir, split)
     if split_features is None:
         extractor = get_feature_extractor(cnn_model)
-        split_features = extractor.predict(split_seq, verbose=0)
+        cnn_features = extractor.predict(split_seq, verbose=0)
+        identity_features = extract_identity_features_for_paths(
+            paths=split_seq.get_paths(),
+            face_crop_expand=cfg.face_crop_expand,
+        )
+        split_features = np.concatenate([cnn_features.astype(np.float32), identity_features], axis=1)
         feature_labels = y_true
     else:
         split_features, feature_labels = _subset_arrays(split_features, feature_labels, max_samples)

@@ -13,6 +13,7 @@ import logging
 
 import numpy as np
 
+from utils.classical_features import IdentityFeatureSpec, extract_identity_features_for_paths
 from utils.config import get_config
 from utils.data_loader import create_split_sequence, load_split_dataframe
 from utils.model_utils import (
@@ -29,6 +30,7 @@ LOGGER = logging.getLogger('extract_features')
 
 
 BACKBONE_CHOICES = ['efficientnetb0', 'efficientnetb1', 'resnet50', 'mobilenetv2', 'vgg16']
+IDENTITY_SPEC = IdentityFeatureSpec()
 
 
 def parse_args() -> argparse.Namespace:
@@ -106,14 +108,36 @@ def _extract_split(
     features = model.predict(sequence, verbose=1)
     labels = sequence.get_labels()
     paths = np.array(sequence.get_paths())
+    identity_features = extract_identity_features_for_paths(
+        paths=paths.tolist(),
+        spec=IDENTITY_SPEC,
+        face_crop_expand=cfg.face_crop_expand,
+    )
+    combined_features = np.concatenate([features.astype(np.float32), identity_features], axis=1)
 
-    np.savez_compressed(output_path, features=features, labels=labels, paths=paths)
+    np.savez_compressed(
+        output_path,
+        features=combined_features,
+        cnn_features=features.astype(np.float32),
+        identity_features=identity_features,
+        labels=labels,
+        paths=paths,
+    )
 
-    LOGGER.info('[%s] Saved features to %s with shape=%s', split, output_path, features.shape)
+    LOGGER.info(
+        '[%s] Saved combined features to %s with shape=%s (cnn=%s identity=%s)',
+        split,
+        output_path,
+        combined_features.shape,
+        features.shape,
+        identity_features.shape,
+    )
     return {
         'split': split,
         'rows': int(labels.shape[0]),
-        'feature_shape': list(features.shape),
+        'feature_shape': list(combined_features.shape),
+        'cnn_feature_shape': list(features.shape),
+        'identity_feature_shape': list(identity_features.shape),
         'output': str(output_path),
         'resolved_image_root': str(split_data.image_root),
         'reused': False,
@@ -172,6 +196,8 @@ def main() -> None:
         'dual_hybrid_backbone': dual,
         'image_size': image_size,
         'embedding_dim': int(extractor.output_shape[-1]),
+        'identity_feature_dim': int(summaries['train']['identity_feature_shape'][1]),
+        'feature_pipeline': 'cnn_embedding_plus_face_identity_descriptor',
         'class_mapping': {'0': 'Fake', '1': 'Real'},
         'feature_files': summaries,
     }

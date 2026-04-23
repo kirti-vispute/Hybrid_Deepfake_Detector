@@ -107,6 +107,7 @@ class AppConfig:
     cnn_metadata_path: Path = _as_path('models/cnn_metadata.json')
     cnn_train_rgb_stats_path: Path = _as_path('models/cnn_train_rgb_stats.joblib')
     hybrid_metadata_path: Path = _as_path('models/hybrid_metadata.json')
+    reference_pair_model_path: Path = _as_path('models/reference_pair_model.joblib')
     classical_model_path: Path = _as_path('models/classical_fallback_model.joblib')
     classical_metadata_path: Path = _as_path('models/classical_fallback_metadata.json')
     classical_feature_dir: Path = _as_path('artifacts/classical_features')
@@ -138,6 +139,7 @@ class AppConfig:
             self.hybrid_calibrator_path.parent,
             self.hybrid_pca_path.parent,
             self.smart_router_path.parent,
+            self.reference_pair_model_path.parent,
             self.extractor_config_path.parent,
             self.dataset_audit_path.parent,
             self.production_inference_path.parent,

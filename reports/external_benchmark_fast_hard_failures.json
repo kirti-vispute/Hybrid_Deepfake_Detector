@@ -1,0 +1,36 @@
+[
+  {
+    "filename": "randomuser_real_05.jpg",
+    "true_label": "real",
+    "predicted_label": "fake",
+    "prob_real": 0.3559322033898305,
+    "prob_fake": 0.6440677966101696,
+    "confidence": 0.6440677966101696,
+    "correct": false,
+    "model_used": "hybrid",
+    "inference_backend": "hybrid",
+    "decision_threshold": 0.4754509018036073,
+    "source_name": "RandomUser",
+    "source_page": "https://randomuser.me/api/?results=20&seed=deepfake-detector&inc=picture",
+    "download_url": "https://randomuser.me/api/portraits/men/97.jpg",
+    "local_path": "D:\\Kirti\\ML_Project\\DeepFakeAI-main\\CMPN\\ML-Project\\Deepfake\\Hybrid_Deepfake_Detector\\external_test\\real\\randomuser_real_05.jpg",
+    "hard_example_path": "D:\\Kirti\\ML_Project\\DeepFakeAI-main\\CMPN\\ML-Project\\Deepfake\\Hybrid_Deepfake_Detector\\data\\hard_examples\\fake\\external\\real\\randomuser_real_05.jpg"
+  },
+  {
+    "filename": "randomuser_real_14.jpg",
+    "true_label": "real",
+    "predicted_label": "fake",
+    "prob_real": 0.11475409836065574,
+    "prob_fake": 0.8852459016393442,
+    "confidence": 0.8852459016393442,
+    "correct": false,
+    "model_used": "hybrid",
+    "inference_backend": "hybrid",
+    "decision_threshold": 0.4754509018036073,
+    "source_name": "RandomUser",
+    "source_page": "https://randomuser.me/api/?results=20&seed=deepfake-detector&inc=picture",
+    "download_url": "https://randomuser.me/api/portraits/women/2.jpg",
+    "local_path": "D:\\Kirti\\ML_Project\\DeepFakeAI-main\\CMPN\\ML-Project\\Deepfake\\Hybrid_Deepfake_Detector\\external_test\\real\\randomuser_real_14.jpg",
+    "hard_example_path": "D:\\Kirti\\ML_Project\\DeepFakeAI-main\\CMPN\\ML-Project\\Deepfake\\Hybrid_Deepfake_Detector\\data\\hard_examples\\fake\\external\\real\\randomuser_real_14.jpg"
+  }
+]
